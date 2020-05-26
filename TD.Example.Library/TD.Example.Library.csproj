@@ -70,20 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Data\UserContext.cs" />
-    <Compile Include="Migrations\202004150433530_init.cs" />
-    <Compile Include="Migrations\202004150433530_init.Designer.cs">
-      <DependentUpon>202004150433530_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004150835137_update1.cs" />
-    <Compile Include="Migrations\202004150835137_update1.Designer.cs">
-      <DependentUpon>202004150835137_update1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004150844019_update2.cs" />
-    <Compile Include="Migrations\202004150844019_update2.Designer.cs">
-      <DependentUpon>202004150844019_update2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Common.cs" />
     <Compile Include="Models\ModelBaseExt.cs" />
@@ -98,17 +85,6 @@
     <None Include="App.config" />
     <None Include="keyUser.snk" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004150433530_init.resx">
-      <DependentUpon>202004150433530_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004150835137_update1.resx">
-      <DependentUpon>202004150835137_update1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004150844019_update2.resx">
-      <DependentUpon>202004150844019_update2.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

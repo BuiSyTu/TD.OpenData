@@ -73,10 +73,6 @@
     <Reference Include="TD.Core.Api.Mvc.Integration">
       <HintPath>..\..\..\..\Downloads\TD.BC\TD.BC\libs\TD.Core.Api.Mvc.Integration.dll</HintPath>
     </Reference>
-    <Reference Include="TD.Example.Library, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0ebd91d00ddc5741, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TD.Example.Library\bin\Debug\TD.Example.Library.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Abstractions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.5.10.0\lib\net45\Unity.Abstractions.dll</HintPath>
     </Reference>
@@ -94,6 +90,11 @@
     <None Include="KeyUserApi.snk" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TD.Example.Library\TD.Example.Library.csproj">
+      <Project>{962be89a-5f38-43d7-8f86-9904b0b22439}</Project>
+      <Name>TD.Example.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
