@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Module>
+  <ID>MDExample</ID>
+  <Title>Example Module</Title>
+  <Description>TDCore Example Module</Description>
+  <Files>
+    <File Url="SitePages/Default.aspx" IsDefaultPage="true"></File>
+    <File Url="SitePages/RestrictedPage.aspx">
+      <Permission Code="PM1" Type="Reader"></Permission>
+    </File>
+  </Files>
+</Module>
