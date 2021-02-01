@@ -1,0 +1,87 @@
+﻿<%@Master language="C#" MasterPageFile="../default/default.master"%>
+<%@ Register Tagprefix="SharePoint" Namespace="Microsoft.SharePoint.WebControls" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" %>
+<%@ Register Tagprefix="layout" Namespace="TD.Core.Layouts.Controls" Assembly="TD.Core.Layouts.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fdcb66d7090aabcd" %>
+<%@ Register Tagprefix="layout" TagName="Breadcrumb" src="~/_controltemplates/15/tdcore/controls/BreadcrumbControl.ascx" %>
+<%@ Register TagPrefix="bc" TagName="Footer" Src="~/_controltemplates/15/TD.BC/Footer.ascx" %>
+<%@ Register TagPrefix="bc" TagName="FooterMenuItems" Src="~/_controltemplates/15/TD.BC/FooterMenuItems.ascx" %>
+<%@ Register TagPrefix="bc" TagName="SettingsMenu" Src="~/_controltemplates/15/TD.BC/SettingsMenu.ascx" %>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderLayoutConfig">
+	<layout:LayoutConfigControl runat="server">
+		<Setters>
+			<layout:ConfigSetter Name="CompactMode" Value="True"/>
+			<layout:ConfigSetter Name="footer.Show" Value="True"/>
+			<layout:ConfigSetter Name="footer.Fixed" Value="False"/>
+			<layout:ConfigSetter Name="asideLeft.Show" Value="False"/>
+		</Setters>
+	</layout:LayoutConfigControl>
+	<asp:ContentPlaceHolder runat="server" id="PlaceHolderLayoutConfig"/>
+</asp:Content>
+
+<asp:Content ContentPlaceHolderId="PlaceHolderAsideMenu" runat="server">
+	<!-- BEGIN: Aside Menu -->
+	<layout:AsideMenuControl runat="server" Provider="List" ListTitle="Menu" CssClass="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-light" SubmenuToggleMode="Hover"/>
+	<!-- END: Aside Menu -->
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderMain">
+	<asp:ContentPlaceHolder runat="server" id="PlaceHolderMain"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderPageTitle">
+	<asp:ContentPlaceHolder runat="server" id="PlaceHolderPageTitle"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderPageVendorStyles">
+	<link rel="stylesheet" type="text/css" href="/_layouts/15/TD.BC/assets/css/vendors.min.css" />
+	<asp:ContentPlaceHolder runat="server" id="PlaceHolderPageVendorStyles"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderPageStyles">
+	<link rel="stylesheet" type="text/css" href="/_layouts/15/TD.BC/assets/css/bc.lib.css"/>
+	<asp:ContentPlaceHolder runat="server" id="PlaceHolderPageStyles"/>
+	<link rel="stylesheet" type="text/css" href="/_layouts/15/TD.BC/assets/themes/fixed.css" />
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderAdditionalPageHead">
+	<asp:ContentPlaceHolder runat="server" id="PlaceHolderAdditionalPageHead"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderPageHeaderTitle">
+	<asp:ContentPlaceHolder runat="Server" id="PlaceHolderPageHeaderTitle"><SharePoint:FieldValue id="PageTitle" FieldName="Title" runat="server"/></asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderHeaderMenu">
+	<layout:HeaderMenuControl runat="server" Provider="List" ListTitle="Menu"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderTitleBreadcrumb">
+	<asp:ContentPlaceHolder runat="Server" id="PlaceHolderTitleBreadcrumb"><layout:Breadcrumb runat="server" Level="Module"/></asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderPageHeaderAfter">
+	<asp:ContentPlaceHolder runat="Server" id="PlaceHolderPageHeaderAfter"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderPageVendorScripts">
+	<script type="text/javascript" src="/_layouts/15/TD.BC/assets/js/vendors.min.js"></script>
+	<asp:ContentPlaceHolder runat="server" ID="PlaceHolderPageVendorScripts"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderPageScripts">
+	<script type="text/javascript">
+		try {
+			$.fn.dataTable.ext.errMode = 'none';
+		} catch (e) {}
+    </script>
+	<script type="text/javascript" src="/_layouts/15/TD.BC/assets/js/bc.lib.js"></script>
+	<asp:ContentPlaceHolder runat="server" ID="PlaceHolderPageScripts"/>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderFooterCopyright">
+	<bc:Footer runat="server" />
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="PlaceHolderFooterMenuItems">
+	<bc:FooterMenuItems runat="server" />
+</asp:Content>
