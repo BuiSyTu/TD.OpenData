@@ -22,7 +22,7 @@
           <Field Name="Link">~sitecollection/SitePages/RestrictedPage.aspx</Field>
           <Field Name="IconClass">flaticon-user</Field>
           <Field Name="Parent">1;#Examlple Left Menu</Field>
-          <Field Name="ItemOrder">1.00000000000000</Field>
+          <Field Name="ItemOrder">1</Field>
           <Field Name="Active">1</Field>
           <Field Name="VisibleOnly">PM1</Field>
         </Row>
@@ -33,7 +33,7 @@
           <Field Name="Link">~sitecollection/SitePages/NormalPage.aspx</Field>
           <Field Name="IconClass">flaticon-web</Field>
           <Field Name="Parent">1;#Examlple Left Menu</Field>
-          <Field Name="ItemOrder">2.00000000000000</Field>
+          <Field Name="ItemOrder">2</Field>
           <Field Name="Active">1</Field>
         </Row>
       </Rows>

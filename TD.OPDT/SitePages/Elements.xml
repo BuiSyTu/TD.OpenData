@@ -1,7 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Elements xmlns="http://schemas.microsoft.com/sharepoint/">
-  <Module Name="SitePages" Url="Sitepages">
-    <File Path="SitePages\default.asxp" Url="default.asxp" />
-    <File Path="SitePages\default.js" Url="default.js" />
+  <Module Name="SitePages" Url="SitePages">
+    <File Path="SitePages\Default.aspx"
+          Url="Default.aspx"
+          Type="GhostableInLibrary"
+          ReplaceContent="true"/>
+    <File Path="SitePages\RestrictedPage.aspx"
+          Url="RestrictedPage.aspx"
+          Type="GhostableInLibrary"
+          ReplaceContent="true"/>
+    <File Path="SitePages\NormalPage.aspx"
+          Url="NormalPage.aspx"
+          Type="GhostableInLibrary"
+          ReplaceContent="true"/>
   </Module>
 </Elements>
