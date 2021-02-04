@@ -14,11 +14,11 @@ namespace TD.OPDT.Data.DataContext
         {
         }
 
-        public DbSet<Field> Users { get; set; }
+        public DbSet<Field> Fields { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Field>().ToTable("User");
+            modelBuilder.Entity<Field>().ToTable("Field");
 
             base.OnModelCreating(modelBuilder);
         }
