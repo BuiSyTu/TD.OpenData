@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{47CD14A0-06BE-4780-B5AE-359208544108}</ProjectGuid>
+    <ProjectGuid>{B3BE3B13-7080-4F97-8BB9-F57A7F8354CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TD.OPDT</RootNamespace>
@@ -14,7 +14,6 @@
     <ProjectTypeGuids>{C1CDDADD-2546-481F-9697-4EA41081F2FC};{14822709-B5A1-4724-98CA-57A101D1B079};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SandboxedSolution>False</SandboxedSolution>
     <AssemblyDeploymentTarget>WebApplication</AssemblyDeploymentTarget>
-    <IncludeAssemblyInPackage>True</IncludeAssemblyInPackage>
     <ActiveDeploymentConfiguration>No Activation</ActiveDeploymentConfiguration>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -56,38 +55,38 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Features\Feature1\Feature1.feature">
-      <FeatureId>{a9d79c20-24e6-4fbe-92eb-57e2b87f22b4}</FeatureId>
+    <None Include="Features\OPDT\OPDT.feature">
+      <FeatureId>{62f20a95-a56e-463b-a01b-f2092d1e0dbf}</FeatureId>
     </None>
     <None Include="key.snk" />
     <None Include="Menu\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{272a095b-2b74-4fa5-8499-06cdb9974330}</SharePointProjectItemId>
+      <SharePointProjectItemId>{6fbf7f0e-c77c-417b-bfb4-7ebddb2bb473}</SharePointProjectItemId>
     </None>
     <None Include="Module\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{36889ab2-1f4b-4da0-ad05-951a30dd34af}</SharePointProjectItemId>
+      <SharePointProjectItemId>{68ba0eb0-c9f1-4bde-8bad-c3722042be59}</SharePointProjectItemId>
     </None>
     <None Include="Package\Package.package">
-      <PackageId>{5c490a47-001f-4d90-aeda-fff53696673b}</PackageId>
+      <PackageId>{65328096-de6c-40bb-8062-55dfcb4aa501}</PackageId>
     </None>
     <None Include="Package\Package.Template.xml">
       <DependentUpon>Package.package</DependentUpon>
     </None>
     <None Include="Permissions\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{613fa3ab-32d9-478f-bcbd-deae9dc02253}</SharePointProjectItemId>
+      <SharePointProjectItemId>{ab5d8cfb-f63a-46ae-a6b1-cc1c7e7ec119}</SharePointProjectItemId>
     </None>
     <None Include="Roles\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{95da5465-b01c-45ea-bab1-db9e06f4ac58}</SharePointProjectItemId>
+      <SharePointProjectItemId>{911e4b85-ac2c-4cf5-a9a5-b6ffe2f525ec}</SharePointProjectItemId>
     </None>
     <None Include="SitePages\SharePointProjectItem.spdata">
-      <SharePointProjectItemId>{2cbc5ef1-56b6-4b78-8c87-3ae3445dd368}</SharePointProjectItemId>
+      <SharePointProjectItemId>{4357d96a-d1c8-4757-a278-2b0bcdea7672}</SharePointProjectItemId>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Features\Feature1\Feature1.Template.xml">
-      <DependentUpon>Feature1.feature</DependentUpon>
+    <Content Include="Features\OPDT\OPDT.Template.xml">
+      <DependentUpon>OPDT.feature</DependentUpon>
     </Content>
     <Content Include="Menu\Elements.xml" />
-    <Content Include="Module\Mainfest.xml" />
+    <Content Include="Module\Manifest.xml" />
     <Content Include="Permissions\Elements.xml" />
     <Content Include="Roles\Elements.xml" />
     <Content Include="SitePages\RestrictedPage.aspx" />

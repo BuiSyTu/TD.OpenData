@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Module>
   <ID>MDExample</ID>
-  <Title>Example Module</Title>
+  <Title>Hệ thống quản trị cơ sở dữ liệu chung</Title>
   <Description>TDCore Example Module</Description>
   <Files>
     <File Url="SitePages/Default.aspx" IsDefaultPage="true"></File>
