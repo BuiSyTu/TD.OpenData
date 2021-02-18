@@ -15,7 +15,7 @@ namespace TD.OPDT.Data.Migrations
                         Code = c.String(),
                         Name = c.String(),
                         Order = c.Int(nullable: false),
-                        IsHidden = c.Boolean(nullable: false),
+                        Active = c.Boolean(nullable: false),
                         CreatedAt = c.DateTime(),
                         ModifiedAt = c.DateTime(),
                     })

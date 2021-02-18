@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Web.Http;
 using TD.Core.Api.Mvc;
 using TD.Core.Api.Mvc.Integration;
+using TD.OPDT.Data.DataContext;
+using TD.OPDT.Data.Repositories;
 using Unity;
 
 namespace TD.OPDT.Api.Integration
@@ -30,7 +32,13 @@ namespace TD.OPDT.Api.Integration
 
         public void RegisterDIConfig(UnityContainer container)
         {
-            container.RegisterFactory<ICoreServicesProvider>(c => new DefaultContextCoreServicesProvider());
+            container
+                // DbContext
+                .RegisterType<OpenDataContext>()
+                // Repositories
+                .RegisterType<IFieldRepository, FieldRepository>()
+                // Another
+                .RegisterFactory<ICoreServicesProvider>(c => new DefaultContextCoreServicesProvider());
         }
     }
 }
