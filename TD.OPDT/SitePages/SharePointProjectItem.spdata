@@ -7,5 +7,7 @@
     <ProjectItemFile Source="RestrictedPage.aspx" Target="SitePages\" Type="ElementFile" />
     <ProjectItemFile Source="field\default.aspx" Target="SitePages\field\" Type="ElementFile" />
     <ProjectItemFile Source="field\default.js" Target="SitePages\field\" Type="ElementFile" />
+    <ProjectItemFile Source="office\default.aspx" Target="SitePages\office\" Type="ElementFile" />
+    <ProjectItemFile Source="office\default.js" Target="SitePages\office\" Type="ElementFile" />
   </Files>
 </ProjectItem>

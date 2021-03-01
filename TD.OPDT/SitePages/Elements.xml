@@ -21,5 +21,7 @@
           Url="field/default.js"
           Type="GhostableInLibrary"
           ReplaceContent="true" />
+    <File Path="SitePages\office\default.aspx" Url="office/default.aspx" />
+    <File Path="SitePages\office\default.js" Url="office/default.js" />
   </Module>
 </Elements>
