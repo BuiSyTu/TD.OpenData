@@ -21,7 +21,21 @@
           Url="field/default.js"
           Type="GhostableInLibrary"
           ReplaceContent="true" />
-    <File Path="SitePages\office\default.aspx" Url="office/default.aspx" />
-    <File Path="SitePages\office\default.js" Url="office/default.js" />
+    <File Path="SitePages\office\default.aspx"
+          Url="office/default.aspx"
+          Type="GhostableInLibrary"
+          ReplaceContent="true" />
+    <File Path="SitePages\office\default.js"
+          Url="office/default.js"
+          Type="GhostableInLibrary"
+          ReplaceContent="true" />
+    <File Path="SitePages\dataset\default.aspx"
+          Url="dataset/default.aspx"
+          Type="GhostableInLibrary"
+          ReplaceContent="true" />
+    <File Path="SitePages\dataset\default.js"
+          Url="dataset/default.js"
+          Type="GhostableInLibrary"
+          ReplaceContent="true" />
   </Module>
 </Elements>

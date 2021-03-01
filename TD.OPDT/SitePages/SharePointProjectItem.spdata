@@ -9,5 +9,7 @@
     <ProjectItemFile Source="field\default.js" Target="SitePages\field\" Type="ElementFile" />
     <ProjectItemFile Source="office\default.aspx" Target="SitePages\office\" Type="ElementFile" />
     <ProjectItemFile Source="office\default.js" Target="SitePages\office\" Type="ElementFile" />
+    <ProjectItemFile Source="dataset\default.aspx" Target="SitePages\dataset\" Type="ElementFile" />
+    <ProjectItemFile Source="dataset\default.js" Target="SitePages\dataset\" Type="ElementFile" />
   </Files>
 </ProjectItem>

@@ -89,6 +89,8 @@
     <Content Include="Module\Manifest.xml" />
     <Content Include="Permissions\Elements.xml" />
     <Content Include="Roles\Elements.xml" />
+    <Content Include="SitePages\dataset\default.aspx" />
+    <Content Include="SitePages\dataset\default.js" />
     <Content Include="SitePages\field\default.aspx" />
     <Content Include="SitePages\field\default.js" />
     <Content Include="SitePages\office\default.aspx" />
