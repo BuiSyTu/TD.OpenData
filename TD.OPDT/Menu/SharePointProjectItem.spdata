@@ -4,6 +4,6 @@
     <ProjectItemFile Source="Elements.xml" Target="Menu\" Type="ElementManifest" />
   </Files>
   <ExtensionData>
-    <ExtensionDataItem Key="DeploymentConflictResolutionBehavior" Value="None" />
+    <ExtensionDataItem Key="DeploymentConflictResolutionBehavior" Value="Automatic" />
   </ExtensionData>
 </ProjectItem>

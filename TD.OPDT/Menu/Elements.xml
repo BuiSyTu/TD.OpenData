@@ -10,30 +10,106 @@
       <Rows>
         <Row>
           <Field Name="ID">1</Field>
-          <Field Name="Title">Examlple Left Menu</Field>
+          <Field Name="Title">Dashboard</Field>
           <Field Name="IsSection">0</Field>
           <Field Name="IconClass">flaticon-menu-button</Field>
+          <Field Name="ItemOrder">1</Field>
           <Field Name="Active">1</Field>
         </Row>
         <Row>
           <Field Name="ID">2</Field>
-          <Field Name="Title">Restricted page</Field>
+          <Field Name="Title">Tập dữ liệu</Field>
           <Field Name="IsSection">0</Field>
-          <Field Name="Link">~sitecollection/SitePages/RestrictedPage.aspx</Field>
           <Field Name="IconClass">flaticon-user</Field>
-          <Field Name="Parent">1;#Examlple Left Menu</Field>
-          <Field Name="ItemOrder">1.00000000000000</Field>
+          <Field Name="ItemOrder">2</Field>
           <Field Name="Active">1</Field>
-          <Field Name="VisibleOnly">PM1</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">21</Field>
+          <Field Name="Title">Dữ liệu dạng file</Field>
+          <Field Name="IsSection">0</Field>
+          <Field Name="Link">~sitecollection/SitePages/office/default.aspx</Field>
+          <Field Name="IconClass">flaticon-web</Field>
+          <Field Name="Parent">2;#Tập dữ liệu</Field>
+          <Field Name="ItemOrder">1</Field>
+          <Field Name="Active">1</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">21</Field>
+          <Field Name="Title">Dữ liệu dạng api</Field>
+          <Field Name="IsSection">0</Field>
+          <Field Name="Link">~sitecollection/SitePages/office/default.aspx</Field>
+          <Field Name="IconClass">flaticon-web</Field>
+          <Field Name="Parent">2;#Tập dữ liệu</Field>
+          <Field Name="ItemOrder">2</Field>
+          <Field Name="Active">1</Field>
         </Row>
         <Row>
           <Field Name="ID">3</Field>
-          <Field Name="Title">Normal page</Field>
+          <Field Name="Title">Danh mục</Field>
           <Field Name="IsSection">0</Field>
-          <Field Name="Link">~sitecollection/SitePages/NormalPage.aspx</Field>
           <Field Name="IconClass">flaticon-web</Field>
-          <Field Name="Parent">1;#Examlple Left Menu</Field>
-          <Field Name="ItemOrder">2.00000000000000</Field>
+          <Field Name="ItemOrder">3</Field>
+          <Field Name="Active">1</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">31</Field>
+          <Field Name="Title">Lĩnh vực</Field>
+          <Field Name="IsSection">0</Field>
+          <Field Name="Link">~sitecollection/SitePages/field/default.aspx</Field>
+          <Field Name="IconClass">flaticon-web</Field>
+          <Field Name="Parent">3;#Danh mục</Field>
+          <Field Name="ItemOrder">1</Field>
+          <Field Name="Active">1</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">32</Field>
+          <Field Name="Title">Nguồn dữ liệu</Field>
+          <Field Name="IsSection">0</Field>
+          <Field Name="Link">~sitecollection/SitePages/field/default.aspx</Field>
+          <Field Name="IconClass">flaticon-web</Field>
+          <Field Name="Parent">3;#Danh mục</Field>
+          <Field Name="ItemOrder">2</Field>
+          <Field Name="Active">1</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">33</Field>
+          <Field Name="Title">Người sử dụng</Field>
+          <Field Name="IsSection">0</Field>
+          <Field Name="Link">~sitecollection/SitePages/field/default.aspx</Field>
+          <Field Name="IconClass">flaticon-web</Field>
+          <Field Name="Parent">3;#Danh mục</Field>
+          <Field Name="ItemOrder">3</Field>
+          <Field Name="Active">1</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">34</Field>
+          <Field Name="Title">Cấu hình hệ thống</Field>
+          <Field Name="IsSection">0</Field>
+          <Field Name="Link">~sitecollection/SitePages/field/default.aspx</Field>
+          <Field Name="IconClass">flaticon-web</Field>
+          <Field Name="Parent">3;#Danh mục</Field>
+          <Field Name="ItemOrder">4</Field>
+          <Field Name="Active">1</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">35</Field>
+          <Field Name="Title">Cấu hình cảnh báo</Field>
+          <Field Name="IsSection">0</Field>
+          <Field Name="Link">~sitecollection/SitePages/field/default.aspx</Field>
+          <Field Name="IconClass">flaticon-web</Field>
+          <Field Name="Parent">3;#Danh mục</Field>
+          <Field Name="ItemOrder">5</Field>
+          <Field Name="Active">1</Field>
+        </Row>
+        <Row>
+          <Field Name="ID">36</Field>
+          <Field Name="Title">Log hệ thống</Field>
+          <Field Name="IsSection">0</Field>
+          <Field Name="Link">~sitecollection/SitePages/field/default.aspx</Field>
+          <Field Name="IconClass">flaticon-web</Field>
+          <Field Name="Parent">3;#Danh mục</Field>
+          <Field Name="ItemOrder">6</Field>
           <Field Name="Active">1</Field>
         </Row>
       </Rows>
