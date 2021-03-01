@@ -43,16 +43,14 @@
                 </div>
 			</div>
 			<div class="form-group m-form__group row col-12">
-                <label class="col-form-label col-3">Sử dụng</label>
-				<div class="col-3">
-					<span class="m-switch m-switch--outline m-switch--icon m-switch--success">
-						<label>
-							<input type="checkbox" checked="checked" name="">
-							<span></span>
-						</label>
-					</span>
+				<label class="col-form-label col-3">Sử dụng</label>
+				<div class="col-9">
+					<label class="m-checkbox m-checkbox--state-success">
+						<input type="checkbox" name="Active" value="true" checked="checked">
+						<span></span>
+					</label>
 				</div>
-            </div>
+			</div>
             <div class="form-group m-form__group row col-12">
                 <label class="col-form-label col-3">Mã</label>
                 <div class="col-9">
@@ -77,16 +75,14 @@
                 </div>
 			</div>
 			<div class="form-group m-form__group row col-12">
-                <label class="col-form-label col-3">Sử dụng</label>
-				<div class="col-3">
-					<span class="m-switch m-switch--outline m-switch--icon m-switch--success">
-						<label>
-							<input type="checkbox" checked="checked" name="">
-							<span></span>
-						</label>
-					</span>
+				<label class="col-form-label col-3">Sử dụng</label>
+				<div class="col-9">
+					<label class="m-checkbox m-checkbox--state-success">
+						<input type="checkbox" id="Active" name="Active" value="true" checked="checked">
+						<span></span>
+					</label>
 				</div>
-            </div>
+			</div>
             <div class="form-group m-form__group row col-12">
                 <label class="col-form-label col-3">Mã</label>
                 <div class="col-9">
@@ -109,5 +105,5 @@
 	<script type="text/javascript" src="~/_layouts/15/tdcore/v3/assets/vendors/custom/datatables/datatables.bundle.js"></script>
 </asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="PlaceHolderPageScripts">
-	<script type="text/javascript" src="field.js"> </script>
+	<script type="text/javascript" src="default.js"> </script>
 </asp:Content>

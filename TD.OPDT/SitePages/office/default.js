@@ -1,7 +1,92 @@
-﻿!(function (factory) {
-    factory(jQuery, tdcore.modals, tdcore.forms);
-})(function ($, modals, forms) {
-    var table;
+﻿var officeApi = (function () {
+    var apiPrefix = 'opdtapi';
+    var controllerName = 'offices';
+
+    function getAll() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'GET',
+                url: `/${apiPrefix}/${controllerName}`,
+                success: function (res) { resolve(res.result) },
+                error: function (e) { reject(e) }
+            })
+        });
+    }
+
+    function getById(id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'GET',
+                url: `/${apiPrefix}/${controllerName}/${id}`,
+                success: function (res) { resolve(res.result) },
+                error: function (e) { reject(e) }
+            })
+        });
+    }
+
+    function add(val) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'POST',
+                url: `/${apiPrefix}/${controllerName}`,
+                data: JSON.stringify({
+                    Name: val.Name,
+                    Code: val.Code,
+                    Order: val.Order,
+                    Active: val.Active,
+                    ParentId: val.ParentId,
+                }),
+                contentType: 'application/json',
+                success: function (res) { resolve(res.result) },
+                error: function (e) { reject(e) },
+            });
+        });
+    }
+
+    function update(id, val) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'PUT',
+                url: `/${apiPrefix}/${controllerName}/${id}`,
+                data: JSON.stringify({
+                    Id: id,
+                    Name: val.Name,
+                    Code: val.Code,
+                    Order: val.Order,
+                    Active: val.Active,
+                    ParentId: val.ParentId,
+                }),
+                contentType: 'application/json',
+                success: function () { resolve() },
+                error: function (e) { reject(e) },
+            });
+        });
+    }
+
+    function _delete(id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'DELETE',
+                url: `/${apiPrefix}/${controllerName}/${id}`,
+                contentType: 'application/json',
+                success: function () { resolve() },
+                error: function (e) { reject(e) },
+            });
+        });
+    }
+
+    return {
+        getAll,
+        getById,
+        add,
+        update,
+        delete: _delete
+    }
+})();
+
+var officeDataTable = (function () {
+    var table
+
     var columnsDefine = [
         {
             title: 'STT',
@@ -17,13 +102,8 @@
             class: 'text-center',
         },
         {
-            title: 'Tên lĩnh vực',
+            title: 'Tên đơn vị',
             data: "Name",
-            class: 'text-center',
-        },
-        {
-            title: 'Thứ tự',
-            data: "Order",
             class: 'text-center',
         },
         {
@@ -32,7 +112,7 @@
             class: 'text-center',
             render: function (data, type, full, meta) {
                 return `<label class="m-checkbox m-checkbox--single  m-checkbox--success m-checkbox">
-                            <input type="checkbox" name="checkbox" disabled ${!data.IsHidden ? "checked" : ""} value="true">
+                            <input type="checkbox" name="checkbox" disabled ${data.Active ? "checked" : ""} value="true">
                             <span></span>
                         </label>`;
             },
@@ -52,16 +132,15 @@
         },
     ]
 
-    var FieldDataTable = {};
-
-    FieldDataTable.Init = function () {
+    function init() {
         table = $('.td-datatable').DataTable({
             ajax: {
-                url: '/opdtapi/fields',
+                url: '/opdtapi/offices',
                 dataSrc: function (res) {
                     return res.result;
                 },
             },
+            processing: true,
             serverSide: false,
             bLengthChange: false,
             sDom: 'lrtip',
@@ -69,41 +148,43 @@
         })
             .on('click', '[btn-editdata]', function () {
                 var id = $(this).attr('data-id');
-                FieldDataTable.Update(id);
+                officeDataTable.update(id);
             })
             .on('click', '[btn-deletedata]', function () {
                 var id = $(this).attr('data-id');
-                FieldDataTable.Delete(id);
+                officeDataTable.delete(id);
             });
     }
 
-    FieldDataTable.Reload = function () {
-        table.ajax.url('/opdtapi/fields').load();
+    function reload() {
+        table.ajax.url('/opdtapi/offices').load();
     }
 
-    FieldDataTable.Add = function () {
-        modals
-            .modal('Thêm lĩnh vực')
+    function add() {
+        tdcore.modals
+            .modal('Thêm đơn vị')
             .content($('#add-template').html())
             .size(500, 350)
             .okCancel()
             .ready(function (mdl) {
-                forms.WidgetActivator.parse(mdl.panel.content).then(function () {
-                    forms.Widget.findWidgets(mdl.panel.content, false, forms.Form)[0];
+                tdcore.forms.WidgetActivator.parse(mdl.panel.content).then(function () {
+                    tdcore.forms.Widget.findWidgets(mdl.panel.content, false, tdcore.forms.Form)[0];
                 });
+                fillSelectParent();
             })
             .addCmd('OK', function (mdl) {
-                var form = forms.Widget.findWidgets(
+                var form = tdcore.forms.Widget.findWidgets(
                     mdl.panel.content,
                     false,
-                    forms.Form
+                    tdcore.forms.Form
                 )[0];
 
                 return form.tryValidate().then(function () {
                     var val = form.getData();
-                    console.log(val);
-                    FieldApi.Add(val).then(function (data) {
-                        FieldDataTable.Reload();
+                    val.Active = val.Active[0] || false;
+                    val.ParentId = getSelectParent();
+                    officeApi.add(val).then(function (data) {
+                        reload();
                     })
                 })
             })
@@ -111,34 +192,35 @@
             .show();
     }
 
-    FieldDataTable.Update = function (id) {
-        modals
-            .modal('Sửa lĩnh vực')
+    function update(id) {
+        tdcore.modals
+            .modal('Sửa đơn vị')
             .content($('#edit-template').html())
             .size(500, 350)
             .okCancel()
             .ready(function (mdl) {
-                forms.WidgetActivator.parse(mdl.panel.content).then(function () {
-                    var form = forms.Widget.findWidgets(mdl.panel.content, false, forms.Form)[0];
-
-                    FieldApi.GetById(id).then(function (data) {
+                tdcore.forms.WidgetActivator.parse(mdl.panel.content).then(function () {
+                    var form = tdcore.forms.Widget.findWidgets(mdl.panel.content, false, tdcore.forms.Form)[0];
+                    officeApi.getById(id).then(function (data) {
                         form.setData(data);
+                        fillSelectParent(data.ParentId);
                     })
                 });
             })
             .addCmd('OK', function (mdl) {
-                var form = forms.Widget.findWidgets(
+                var form = tdcore.forms.Widget.findWidgets(
                     mdl.panel.content,
                     false,
-                    forms.Form
+                    tdcore.forms.Form
                 )[0];
 
 
                 return form.tryValidate().then(function () {
                     var val = form.getData();
-                    console.log(val);
-                    FieldApi.Add(val).then(function (data) {
-                        FieldDataTable.Reload();
+                    val.Active = val.Active[0] || false;
+                    val.ParentId = getSelectParent();
+                    officeApi.update(id, val).then(function () {
+                        reload();
                     })
                 })
             })
@@ -146,62 +228,46 @@
             .show();
     }
 
-    FieldDataTable.Delete = function (id) {
+    function _delete(id) {
         if (confirm("Bạn có chắc muốn xóa dữ liệu này")) {
-            FieldApi.Delete(id).then(function (data) {
-                FieldDataTable.Reload();
+            officeApi.delete(id).then(function () {
+                reload();
             });
         }
     }
 
-    var FieldApi = {};
-
-    FieldApi.GetById = function (id) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: 'GET',
-                url: `/opdtapi/fields/${id}`,
-                success: function (res) { resolve(res.result) },
-                error: function (e) { reject(e) }
-            })
-        })
-    }
-
-    FieldApi.Add = function (val) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: 'POST',
-                url: '/opdtapi/fields',
-                data: JSON.stringify({
-                    Name: val.Name,
-                    Code: val.Code,
-                    Order: val.Order,
-                    IsHidden: val.IsHidden === '1'
-                }),
-                contentType: 'application/json',
-                success: function (res) { resolve(res.result) },
-                error: function (e) { reject(e) },
+    function fillSelectParent(parentId) {
+        officeApi.getAll().then(function (data2) {
+            data2.forEach(function (item) {
+                var option = `<option value=${item.Id}>${item.Name}</option>`;
+                $('.select-parent').append(option);
             });
+
+            if (parentId) $('.select-parent').val(parentId);
         });
     }
 
-    FieldApi.Delete = function (id) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: 'DELETE',
-                url: `/opdtapi/fields/${id}`,
-                contentType: 'application/json',
-                success: function (res) { resolve() },
-                error: function (e) { reject(e) },
-            });
-        });
+    function getSelectParent() {
+        return parseInt($('.select-parent').val());
     }
 
-    $(document).ready(function () {
-        FieldDataTable.Init();
+    return {
+        init,
+        reload,
+        add,
+        update,
+        delete: _delete
+    }
+})();
 
-        $('[btn-adddata]').click(function () {
-            FieldDataTable.Add();
-        })
+$(document).ready(function () {
+    officeDataTable.init();
+
+    $('[btn-adddata]').click(function () {
+        officeDataTable.add();
     })
-});
+})
+
+function getActive() {
+    return $('[name=Active]').prop('checked');
+}

@@ -1,7 +1,78 @@
-﻿!(function (factory) {
-    factory(jQuery, tdcore.modals, tdcore.forms);
-})(function ($, modals, forms) {
-    var table;
+﻿var fieldApi = (function () {
+    var apiPrefix = 'opdtapi';
+    var controllerName = 'fields';
+
+    function getById(id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'GET',
+                url: `/${apiPrefix}/${controllerName}/${id}`,
+                success: function (res) { resolve(res.result) },
+                error: function (e) { reject(e) }
+            })
+        });
+    }
+
+    function add(val) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'POST',
+                url: `/${apiPrefix}/${controllerName}`,
+                data: JSON.stringify({
+                    Name: val.Name,
+                    Code: val.Code,
+                    Order: val.Order,
+                    Active: val.Active,
+                }),
+                contentType: 'application/json',
+                success: function (res) { resolve(res.result) },
+                error: function (e) { reject(e) },
+            });
+        });
+    }
+
+    function update(id, val) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'PUT',
+                url: `/${apiPrefix}/${controllerName}/${id}`,
+                data: JSON.stringify({
+                    Id: id,
+                    Name: val.Name,
+                    Code: val.Code,
+                    Order: val.Order,
+                    Active: val.Active,
+                }),
+                contentType: 'application/json',
+                success: function () { resolve() },
+                error: function (e) { reject(e) },
+            });
+        });
+    }
+
+    function _delete(id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: 'DELETE',
+                url: `/${apiPrefix}/${controllerName}/${id}`,
+                contentType: 'application/json',
+                success: function () { resolve() },
+                error: function (e) { reject(e) },
+            });
+        });
+    }
+
+    return {
+        getById,
+        add,
+        update,
+        delete: _delete
+    }
+})();
+
+var fieldDataTable = (function () {
+    var table
+
     var columnsDefine = [
         {
             title: 'STT',
@@ -32,7 +103,7 @@
             class: 'text-center',
             render: function (data, type, full, meta) {
                 return `<label class="m-checkbox m-checkbox--single  m-checkbox--success m-checkbox">
-                            <input type="checkbox" name="checkbox" disabled ${!data.IsHidden ? "checked" : ""} value="true">
+                            <input type="checkbox" name="checkbox" disabled ${data.Active ? "checked" : ""} value="true">
                             <span></span>
                         </label>`;
             },
@@ -52,9 +123,7 @@
         },
     ]
 
-    var FieldDataTable = {};
-
-    FieldDataTable.Init = function () {
+    function init() {
         table = $('.td-datatable').DataTable({
             ajax: {
                 url: '/opdtapi/fields',
@@ -69,41 +138,42 @@
         })
             .on('click', '[btn-editdata]', function () {
                 var id = $(this).attr('data-id');
-                FieldDataTable.Update(id);
+                fieldDataTable.update(id);
             })
             .on('click', '[btn-deletedata]', function () {
                 var id = $(this).attr('data-id');
-                FieldDataTable.Delete(id);
+                fieldDataTable.delete(id);
             });
     }
 
-    FieldDataTable.Reload = function () {
+    function reload() {
         table.ajax.url('/opdtapi/fields').load();
     }
 
-    FieldDataTable.Add = function () {
-        modals
+    function add() {
+        tdcore.modals
             .modal('Thêm lĩnh vực')
             .content($('#add-template').html())
             .size(500, 350)
             .okCancel()
             .ready(function (mdl) {
-                forms.WidgetActivator.parse(mdl.panel.content).then(function () {
-                    forms.Widget.findWidgets(mdl.panel.content, false, forms.Form)[0];
+                tdcore.forms.WidgetActivator.parse(mdl.panel.content).then(function () {
+                    tdcore.forms.Widget.findWidgets(mdl.panel.content, false, tdcore.forms.Form)[0];
                 });
             })
             .addCmd('OK', function (mdl) {
-                var form = forms.Widget.findWidgets(
+                var form = tdcore.forms.Widget.findWidgets(
                     mdl.panel.content,
                     false,
-                    forms.Form
+                    tdcore.forms.Form
                 )[0];
 
                 return form.tryValidate().then(function () {
                     var val = form.getData();
-                    console.log(val);
-                    FieldApi.Add(val).then(function (data) {
-                        FieldDataTable.Reload();
+                    val.Active = val.Active[0] || false;
+                    fieldApi.add(data).then(function (data) {
+                        toastr.success('Thành công');
+                        fieldDataTable.reload();
                     })
                 })
             })
@@ -111,34 +181,35 @@
             .show();
     }
 
-    FieldDataTable.Update = function (id) {
-        modals
+    function update(id) {
+        tdcore.modals
             .modal('Sửa lĩnh vực')
             .content($('#edit-template').html())
             .size(500, 350)
             .okCancel()
             .ready(function (mdl) {
-                forms.WidgetActivator.parse(mdl.panel.content).then(function () {
-                    var form = forms.Widget.findWidgets(mdl.panel.content, false, forms.Form)[0];
+                tdcore.forms.WidgetActivator.parse(mdl.panel.content).then(function () {
+                    var form = tdcore.forms.Widget.findWidgets(mdl.panel.content, false, tdcore.forms.Form)[0];
 
-                    FieldApi.GetById(id).then(function (data) {
+                    fieldApi.getById(id).then(function (data) {
                         form.setData(data);
                     })
                 });
             })
             .addCmd('OK', function (mdl) {
-                var form = forms.Widget.findWidgets(
+                var form = tdcore.forms.Widget.findWidgets(
                     mdl.panel.content,
                     false,
-                    forms.Form
+                    tdcore.forms.Form
                 )[0];
 
 
                 return form.tryValidate().then(function () {
                     var val = form.getData();
-                    console.log(val);
-                    FieldApi.Add(val).then(function (data) {
-                        FieldDataTable.Reload();
+                    val.Active = val.Active[0] || false
+                    fieldApi.update(id, val).then(function () {
+                        toastr.success('Thành công');
+                        fieldDataTable.reload();
                     })
                 })
             })
@@ -146,62 +217,28 @@
             .show();
     }
 
-    FieldDataTable.Delete = function (id) {
-        if (confirm("Bạn có chắc muốn xóa dữ liệu này")) {
-            FieldApi.Delete(id).then(function (data) {
-                FieldDataTable.Reload();
+    function _delete(id) {
+        if (confirm('Bạn có chắc muốn xóa dữ liệu này')) {
+            fieldApi.delete(id).then(function () {
+                toastr.success('Thành công');
+                fieldDataTable.reload();
             });
         }
     }
 
-    var FieldApi = {};
-
-    FieldApi.GetById = function (id) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: 'GET',
-                url: `/opdtapi/fields/${id}`,
-                success: function (res) { resolve(res.result) },
-                error: function (e) { reject(e) }
-            })
-        })
+    return {
+        init,
+        reload,
+        add,
+        update,
+        delete: _delete
     }
+})();
 
-    FieldApi.Add = function (val) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: 'POST',
-                url: '/opdtapi/fields',
-                data: JSON.stringify({
-                    Name: val.Name,
-                    Code: val.Code,
-                    Order: val.Order,
-                    IsHidden: val.IsHidden === '1'
-                }),
-                contentType: 'application/json',
-                success: function (res) { resolve(res.result) },
-                error: function (e) { reject(e) },
-            });
-        });
-    }
+$(document).ready(function () {
+    fieldDataTable.init();
 
-    FieldApi.Delete = function (id) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: 'DELETE',
-                url: `/opdtapi/fields/${id}`,
-                contentType: 'application/json',
-                success: function (res) { resolve() },
-                error: function (e) { reject(e) },
-            });
-        });
-    }
-
-    $(document).ready(function () {
-        FieldDataTable.Init();
-
-        $('[btn-adddata]').click(function () {
-            FieldDataTable.Add();
-        })
+    $('[btn-adddata]').click(function () {
+        fieldDataTable.add();
     })
 });
