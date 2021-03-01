@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TD.OPDT.Data.Models
 {
-    public class BaseModel
+    public class Office: CategoryBase, ITrackableModel
     {
-        public int Id { get; set; }
+        public int ParentId { get; set; }
+        public Office Parent { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
     }

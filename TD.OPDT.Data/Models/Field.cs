@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TD.OPDT.Data.Models
 {
-    public class Field : BaseModel
+    public class Field : CategoryBase, ITrackableModel
     {
-        public string Code { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
-        public bool Active { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
     }
 }
