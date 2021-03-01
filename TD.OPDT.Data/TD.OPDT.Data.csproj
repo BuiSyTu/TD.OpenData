@@ -66,9 +66,9 @@
     <Compile Include="DataContext\OpenDataContext.cs" />
     <Compile Include="FilterModels\BaseFilterModel.cs" />
     <Compile Include="FilterModels\FieldFilterModel.cs" />
-    <Compile Include="Migrations\202102180209385_init.cs" />
-    <Compile Include="Migrations\202102180209385_init.Designer.cs">
-      <DependentUpon>202102180209385_init.cs</DependentUpon>
+    <Compile Include="Migrations\202103010245199_init.cs" />
+    <Compile Include="Migrations\202103010245199_init.Designer.cs">
+      <DependentUpon>202103010245199_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CategoryBase.cs" />
@@ -89,8 +89,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202102180209385_init.resx">
-      <DependentUpon>202102180209385_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202103010245199_init.resx">
+      <DependentUpon>202103010245199_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
