@@ -5,12 +5,49 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using TD.OPDT.Data.Models;
 using Z.Expressions;
 
 namespace TD.OPDT.Data.Repositories
 {
-    public class Repository<T> : IRepository<T>
+    public class Repository<T> : IRepository<T> where T : class
     {
+        private readonly DbContext _context;
+
+        public Repository(DbContext context) 
+        {
+            _context = context;
+        }
+
+        public T Add(T model)
+        {
+            if (model is ITrackableModel)
+            {
+                var trackable = (ITrackableModel)model;
+                trackable.CreatedAt = DateTime.Now;
+            }
+
+            _context.Set<T>().Add(model);
+            _context.SaveChanges();
+            return model;
+        }
+
+        public void Delete(T model)
+        {
+            _context.Set<T>().Remove(model);
+            _context.SaveChanges();
+        }
+
+        public List<T> GetAll()
+        {
+            return _context.Set<T>().ToList();
+        }
+
+        public T GetById(int id)
+        {
+            return _context.Set<T>().Find(id);
+        }
+
         public IQueryable<T> IncludeMany(IQueryable<T> queryable, string include)
         {
             ICollection<string> includeCollection = null;
@@ -83,6 +120,21 @@ namespace TD.OPDT.Data.Repositories
             }
 
             return queryable;
+        }
+
+        public T Update(T model)
+        {
+            _context.Set<T>().Attach(model);
+
+            if (model is ITrackableModel)
+            {
+                var trackable = (ITrackableModel)model;
+                trackable.ModifiedAt = DateTime.Now;
+            }
+
+            _context.Entry(model).State = EntityState.Modified;
+            _context.SaveChanges();
+            return model;
         }
     }
 }
