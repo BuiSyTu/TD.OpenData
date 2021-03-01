@@ -8,7 +8,6 @@ namespace TD.OPDT.Data.Models
 {
     public class Field : CategoryBase, ITrackableModel
     {
-        public string Name { get; set; }
         public int Order { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? ModifiedAt { get; set; }
