@@ -71,8 +71,12 @@
       <DependentUpon>202102180209385_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\CategoryBase.cs" />
+    <Compile Include="Models\DataSet.cs" />
     <Compile Include="Models\Field.cs" />
+    <Compile Include="Models\FileAttachment.cs" />
+    <Compile Include="Models\ITrackableModel.cs" />
+    <Compile Include="Models\Office.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FieldRepository.cs" />
     <Compile Include="Repositories\IFieldRepository.cs" />

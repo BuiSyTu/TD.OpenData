@@ -18,9 +18,9 @@ namespace TD.OPDT.Api.Controllers
         [Route("")]
         [Route("~/opdtapi/fields")]
         [HttpGet]
-        public IHttpActionResult GetFields([FromUri] FieldFilterModel filterModel)
+        public IHttpActionResult GetFields()
         {
-            var fields = _fieldRepository.Get(filterModel);
+            var fields = _fieldRepository.GetAll();
             return ApiOk(fields);
         }
 
@@ -33,7 +33,7 @@ namespace TD.OPDT.Api.Controllers
                 return ApiBadRequest(null, ModelState);
             }
 
-            var fields = _fieldRepository.Create(field);
+            var fields = _fieldRepository.Add(field);
             return ApiCreated(field);
         }
 
@@ -56,7 +56,7 @@ namespace TD.OPDT.Api.Controllers
         [HttpPut]
         public IHttpActionResult PutField(int id, Field change)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return ApiBadRequest(null, ModelState);
             }
@@ -82,7 +82,7 @@ namespace TD.OPDT.Api.Controllers
                 return ApiNotFound();
             }
 
-            _fieldRepository.Remove(field);
+            _fieldRepository.Delete(field);
             return ApiNoContent();
         }
     }

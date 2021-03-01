@@ -4,13 +4,8 @@ using TD.OPDT.Data.Models;
 
 namespace TD.OPDT.Data.Repositories
 {
-    public interface IFieldRepository
+    public interface IFieldRepository : IRepository<Field>
     {
-        Field GetById(int id);
-        List<Field> GetAll();
         List<Field> Get(FieldFilterModel filterModel);
-        Field Create(Field field);
-        Field Update(Field field);
-        void Remove(Field field);
     }
 }
