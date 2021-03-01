@@ -19,7 +19,7 @@ namespace TD.OPDT.Data.Repositories
             _context = context;
         }
 
-        public T Add(T model)
+        public virtual T Add(T model)
         {
             if (model is ITrackableModel)
             {
@@ -32,23 +32,23 @@ namespace TD.OPDT.Data.Repositories
             return model;
         }
 
-        public void Delete(T model)
+        public virtual void Delete(T model)
         {
             _context.Set<T>().Remove(model);
             _context.SaveChanges();
         }
 
-        public List<T> GetAll()
+        public virtual List<T> GetAll()
         {
             return _context.Set<T>().ToList();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return _context.Set<T>().Find(id);
         }
 
-        public IQueryable<T> IncludeMany(IQueryable<T> queryable, string include)
+        public virtual IQueryable<T> IncludeMany(IQueryable<T> queryable, string include)
         {
             ICollection<string> includeCollection = null;
             if (!string.IsNullOrEmpty(include))
@@ -66,7 +66,7 @@ namespace TD.OPDT.Data.Repositories
             return queryable;
         }
 
-        public IQueryable<T> OrderByMany(IQueryable<T> queryable, string orderBy)
+        public virtual IQueryable<T> OrderByMany(IQueryable<T> queryable, string orderBy)
         {
             var splitChars = new char[] { '|' };
 
@@ -122,7 +122,7 @@ namespace TD.OPDT.Data.Repositories
             return queryable;
         }
 
-        public T Update(T model)
+        public virtual T Update(T model)
         {
             _context.Set<T>().Attach(model);
 

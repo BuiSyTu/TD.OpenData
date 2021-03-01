@@ -7,7 +7,8 @@ using TD.OPDT.Data.Models;
 
 namespace TD.OPDT.Data.Repositories
 {
-    interface IOfficeRepostitory: IRepository<Office>
+    public interface IDataSetRepository: IRepository<DataSet>
     {
+
     }
 }

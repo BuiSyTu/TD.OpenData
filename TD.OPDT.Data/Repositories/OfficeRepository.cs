@@ -8,7 +8,7 @@ using TD.OPDT.Data.Models;
 
 namespace TD.OPDT.Data.Repositories
 {
-    public class OfficeRepository : Repository<Office>, IOfficeRepostitory
+    public class OfficeRepository : Repository<Office>, IOfficeRepository
     {
         private OpenDataContext _context;
 

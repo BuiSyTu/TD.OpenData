@@ -37,6 +37,8 @@ namespace TD.OPDT.Api.Integration
                 .RegisterType<OpenDataContext>()
                 // Repositories
                 .RegisterType<IFieldRepository, FieldRepository>()
+                .RegisterType<IOfficeRepository, OfficeRepository>()
+                .RegisterType<IDataSetRepository, DataSetRepository>()
                 // Another
                 .RegisterFactory<ICoreServicesProvider>(c => new DefaultContextCoreServicesProvider());
         }

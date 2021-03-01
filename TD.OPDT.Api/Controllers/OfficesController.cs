@@ -9,8 +9,8 @@ namespace TD.OPDT.Api.Controllers
 {
     public class OfficesController : TDApiController
     {
-        private OfficeRepository _officeRepository;
-        public OfficesController(OfficeRepository officeRepository)
+        private IOfficeRepository _officeRepository;
+        public OfficesController(IOfficeRepository officeRepository)
         {
             _officeRepository = officeRepository;
         }
