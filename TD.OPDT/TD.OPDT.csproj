@@ -89,8 +89,8 @@
     <Content Include="Module\Manifest.xml" />
     <Content Include="Permissions\Elements.xml" />
     <Content Include="Roles\Elements.xml" />
-    <Content Include="SitePages\field.aspx" />
-    <Content Include="SitePages\field.js" />
+    <Content Include="SitePages\field\default.aspx" />
+    <Content Include="SitePages\field\default.js" />
     <Content Include="SitePages\RestrictedPage.aspx" />
     <Content Include="SitePages\NormalPage.aspx" />
     <Content Include="SitePages\Default.aspx" />

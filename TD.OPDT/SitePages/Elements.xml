@@ -13,12 +13,12 @@
           Url="NormalPage.aspx"
           Type="GhostableInLibrary"
           ReplaceContent="true"/>
-    <File Path="SitePages\field.aspx"
-          Url="field.aspx"
+    <File Path="SitePages\field\default.aspx"
+          Url="field/default.aspx"
           Type="GhostableInLibrary"
           ReplaceContent="true"/>
-    <File Path="SitePages\field.js"
-          Url="field.js"
+    <File Path="SitePages\field\default.js"
+          Url="field/default.js"
           Type="GhostableInLibrary"
           ReplaceContent="true" />
   </Module>
