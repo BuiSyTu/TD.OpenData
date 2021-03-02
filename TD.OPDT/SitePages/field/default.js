@@ -13,16 +13,13 @@
         });
     }
 
-    function add(val) {
+    function add({ Name, Code, Order, Active }) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: 'POST',
                 url: `/${apiPrefix}/${controllerName}`,
                 data: JSON.stringify({
-                    Name: val.Name,
-                    Code: val.Code,
-                    Order: val.Order,
-                    Active: val.Active,
+                    Name, Code, Order, Active,
                 }),
                 contentType: 'application/json',
                 success: function (res) { resolve(res.result) },
@@ -31,17 +28,13 @@
         });
     }
 
-    function update(id, val) {
+    function update(id, { Id = id, Name, Code, Order, Active }) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: 'PUT',
                 url: `/${apiPrefix}/${controllerName}/${id}`,
                 data: JSON.stringify({
-                    Id: id,
-                    Name: val.Name,
-                    Code: val.Code,
-                    Order: val.Order,
-                    Active: val.Active,
+                    Id, Name, Code, Order, Active,
                 }),
                 contentType: 'application/json',
                 success: function () { resolve() },
@@ -138,11 +131,11 @@ var fieldDataTable = (function () {
         })
             .on('click', '[btn-editdata]', function () {
                 var id = $(this).attr('data-id');
-                fieldDataTable.update(id);
+                update(id);
             })
             .on('click', '[btn-deletedata]', function () {
                 var id = $(this).attr('data-id');
-                fieldDataTable.delete(id);
+                _delete(id);
             });
     }
 
@@ -171,9 +164,9 @@ var fieldDataTable = (function () {
                 return form.tryValidate().then(function () {
                     var val = form.getData();
                     val.Active = val.Active[0] || false;
-                    fieldApi.add(data).then(function (data) {
+                    fieldApi.add(val).then(function (data) {
                         toastr.success('Thành công');
-                        fieldDataTable.reload();
+                        reload();
                     })
                 })
             })
@@ -209,7 +202,7 @@ var fieldDataTable = (function () {
                     val.Active = val.Active[0] || false
                     fieldApi.update(id, val).then(function () {
                         toastr.success('Thành công');
-                        fieldDataTable.reload();
+                        reload();
                     })
                 })
             })
@@ -221,7 +214,7 @@ var fieldDataTable = (function () {
         if (confirm('Bạn có chắc muốn xóa dữ liệu này')) {
             fieldApi.delete(id).then(function () {
                 toastr.success('Thành công');
-                fieldDataTable.reload();
+                reload();
             });
         }
     }

@@ -24,17 +24,13 @@
         });
     }
 
-    function add(val) {
+    function add({ Name, Code, Order, Active, ParentId }) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: 'POST',
                 url: `/${apiPrefix}/${controllerName}`,
                 data: JSON.stringify({
-                    Name: val.Name,
-                    Code: val.Code,
-                    Order: val.Order,
-                    Active: val.Active,
-                    ParentId: val.ParentId,
+                    Name, Code, Order, Active, ParentId,
                 }),
                 contentType: 'application/json',
                 success: function (res) { resolve(res.result) },
@@ -43,18 +39,13 @@
         });
     }
 
-    function update(id, val) {
+    function update(id, { Id = id, Name, Code, Order, Active, ParentId }) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: 'PUT',
                 url: `/${apiPrefix}/${controllerName}/${id}`,
                 data: JSON.stringify({
-                    Id: id,
-                    Name: val.Name,
-                    Code: val.Code,
-                    Order: val.Order,
-                    Active: val.Active,
-                    ParentId: val.ParentId,
+                    Id, Name, Code, Order, Active, ParentId,
                 }),
                 contentType: 'application/json',
                 success: function () { resolve() },
@@ -112,7 +103,7 @@ var officeDataTable = (function () {
             class: 'text-center',
             render: function (data, type, full, meta) {
                 return `<label class="m-checkbox m-checkbox--single  m-checkbox--success m-checkbox">
-                            <input type="checkbox" name="checkbox" disabled ${data.Active ? "checked" : ""} value="true">
+                            <input type="checkbox" name="checkbox" disabled ${data.Active ? "checked" : ""}>
                             <span></span>
                         </label>`;
             },
@@ -122,11 +113,11 @@ var officeDataTable = (function () {
             data: null,
             title: "Thao tác",
             render: function (data, type, item) {
-                var re = `<a href="javascript:void(0)" btn-editdata  data-id="${data.Id}"
+                var btnAdd = `<a href="javascript:void(0)" btn-editdata  data-id="${data.Id}"
                             class="m-portlet__nav-link btn m-btn btn-outline-success m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip" title="Sửa thông tin"><i class="la la-edit"></i> </a>`;
-                re += `<a href="javascript:void(0)" btn-deletedata data-id="${data.Id}"
+                var btnDelete = `<a href="javascript:void(0)" btn-deletedata data-id="${data.Id}"
                             class="m-portlet__nav-link btn m-btn btn-outline-danger m-btn--icon m-btn--icon-only m-btn--pill" data-toggle="m-tooltip" title="Xóa dữ liệu"><i class="la la-trash"></i> </a>`;
-                return re;
+                return btnAdd + btnDelete;
             },
             class: 'text-center',
         },
@@ -148,11 +139,11 @@ var officeDataTable = (function () {
         })
             .on('click', '[btn-editdata]', function () {
                 var id = $(this).attr('data-id');
-                officeDataTable.update(id);
+                update(id);
             })
             .on('click', '[btn-deletedata]', function () {
                 var id = $(this).attr('data-id');
-                officeDataTable.delete(id);
+                _delete(id);
             });
     }
 
@@ -184,6 +175,7 @@ var officeDataTable = (function () {
                     val.Active = val.Active[0] || false;
                     val.ParentId = getSelectParent();
                     officeApi.add(val).then(function (data) {
+                        toastr.success('Thành công');
                         reload();
                     })
                 })
@@ -220,6 +212,7 @@ var officeDataTable = (function () {
                     val.Active = val.Active[0] || false;
                     val.ParentId = getSelectParent();
                     officeApi.update(id, val).then(function () {
+                        toastr.success('Thành công');
                         reload();
                     })
                 })
@@ -231,6 +224,7 @@ var officeDataTable = (function () {
     function _delete(id) {
         if (confirm("Bạn có chắc muốn xóa dữ liệu này")) {
             officeApi.delete(id).then(function () {
+                toastr.success('Thành công');
                 reload();
             });
         }
@@ -248,7 +242,8 @@ var officeDataTable = (function () {
     }
 
     function getSelectParent() {
-        return parseInt($('.select-parent').val());
+        var result = parseInt($('.select-parent').val());
+        return result != 0 ? result : null;
     }
 
     return {
@@ -265,9 +260,5 @@ $(document).ready(function () {
 
     $('[btn-adddata]').click(function () {
         officeDataTable.add();
-    })
-})
-
-function getActive() {
-    return $('[name=Active]').prop('checked');
-}
+    });
+});

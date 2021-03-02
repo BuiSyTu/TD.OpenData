@@ -1,6 +1,6 @@
-﻿var fieldApi = (function () {
+﻿var dataSetApi = (function () {
     var apiPrefix = 'opdtapi';
-    var controllerName = 'fields';
+    var controllerName = 'datasets';
 
     function getById(id) {
         return new Promise(function (resolve, reject) {
@@ -13,16 +13,13 @@
         });
     }
 
-    function add(val) {
+    function add({ Name, Code, Order, Active, FieldId, OfficeId, Attachments, LinkApi }) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: 'POST',
                 url: `/${apiPrefix}/${controllerName}`,
                 data: JSON.stringify({
-                    Name: val.Name,
-                    Code: val.Code,
-                    Order: val.Order,
-                    Active: val.Active,
+                    Name, Code, Order, Active, FieldId, OfficeId, Attachments, LinkApi,
                 }),
                 contentType: 'application/json',
                 success: function (res) { resolve(res.result) },
@@ -31,17 +28,13 @@
         });
     }
 
-    function update(id, val) {
+    function update(id, { Name, Code, Order, Active, FieldId, OfficeId, Attachments, LinkApi }) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: 'PUT',
                 url: `/${apiPrefix}/${controllerName}/${id}`,
                 data: JSON.stringify({
-                    Id: id,
-                    Name: val.Name,
-                    Code: val.Code,
-                    Order: val.Order,
-                    Active: val.Active,
+                    Name, Code, Order, Active, FieldId, OfficeId, Attachments, LinkApi,
                 }),
                 contentType: 'application/json',
                 success: function () { resolve() },
@@ -70,7 +63,7 @@
     }
 })();
 
-var fieldDataTable = (function () {
+var dataSetDataTable = (function () {
     var table
 
     var columnsDefine = [
@@ -126,7 +119,7 @@ var fieldDataTable = (function () {
     function init() {
         table = $('.td-datatable').DataTable({
             ajax: {
-                url: '/opdtapi/fields',
+                url: '/opdtapi/dataSets',
                 dataSrc: function (res) {
                     return res.result;
                 },
@@ -138,23 +131,23 @@ var fieldDataTable = (function () {
         })
             .on('click', '[btn-editdata]', function () {
                 var id = $(this).attr('data-id');
-                fieldDataTable.update(id);
+                update(id);
             })
             .on('click', '[btn-deletedata]', function () {
                 var id = $(this).attr('data-id');
-                fieldDataTable.delete(id);
+                _delete(id);
             });
     }
 
     function reload() {
-        table.ajax.url('/opdtapi/fields').load();
+        table.ajax.url('/opdtapi/dataSets').load();
     }
 
     function add() {
         tdcore.modals
-            .modal('Thêm lĩnh vực')
+            .modal('Thêm tập dữ liệu')
             .content($('#add-template').html())
-            .size(500, 350)
+            .size(600, 400)
             .okCancel()
             .ready(function (mdl) {
                 tdcore.forms.WidgetActivator.parse(mdl.panel.content).then(function () {
@@ -171,10 +164,27 @@ var fieldDataTable = (function () {
                 return form.tryValidate().then(function () {
                     var val = form.getData();
                     val.Active = val.Active[0] || false;
-                    fieldApi.add(data).then(function (data) {
+
+                    // var uploader = tdcore.forms.getWidget(document.getElementById('uploader'));
+                    // // upload file
+                    // if (uploader.queuedFiles && uploader.queuedFiles.length) {
+                    //     uploader.uploadQueue()
+                    //     .then(function(res) {
+                    //         // lưu thông tin file
+                    //         var fileAttachments = uploader.uploadedFiles.map(function (f) { return { Url: f.url, Name: f.name } });
+                    //         val.Attachments = fileAttachments;
+
+                    //         dataSetApi.add(val).then(function (data) {
+                    //             toastr.success('Thành công');
+                    //             dataSetDataTable.reload();
+                    //         });
+                    //     });
+                    // }
+
+                    dataSetApi.add(val).then(function (data) {
                         toastr.success('Thành công');
-                        fieldDataTable.reload();
-                    })
+                        reload();
+                    });
                 })
             })
             .closeOnly()
@@ -183,15 +193,15 @@ var fieldDataTable = (function () {
 
     function update(id) {
         tdcore.modals
-            .modal('Sửa lĩnh vực')
+            .modal('Sửa tập dữ liệu')
             .content($('#edit-template').html())
-            .size(500, 350)
+            .size(600, 400)
             .okCancel()
             .ready(function (mdl) {
                 tdcore.forms.WidgetActivator.parse(mdl.panel.content).then(function () {
                     var form = tdcore.forms.Widget.findWidgets(mdl.panel.content, false, tdcore.forms.Form)[0];
 
-                    fieldApi.getById(id).then(function (data) {
+                    dataSetApi.getById(id).then(function (data) {
                         form.setData(data);
                     })
                 });
@@ -203,13 +213,12 @@ var fieldDataTable = (function () {
                     tdcore.forms.Form
                 )[0];
 
-
                 return form.tryValidate().then(function () {
                     var val = form.getData();
                     val.Active = val.Active[0] || false
-                    fieldApi.update(id, val).then(function () {
+                    dataSetApi.update(id, val).then(function () {
                         toastr.success('Thành công');
-                        fieldDataTable.reload();
+                        reload();
                     })
                 })
             })
@@ -219,9 +228,9 @@ var fieldDataTable = (function () {
 
     function _delete(id) {
         if (confirm('Bạn có chắc muốn xóa dữ liệu này')) {
-            fieldApi.delete(id).then(function () {
+            dataSetApi.delete(id).then(function () {
                 toastr.success('Thành công');
-                fieldDataTable.reload();
+                reload();
             });
         }
     }
@@ -236,9 +245,9 @@ var fieldDataTable = (function () {
 })();
 
 $(document).ready(function () {
-    fieldDataTable.init();
+    dataSetDataTable.init();
 
     $('[btn-adddata]').click(function () {
-        fieldDataTable.add();
+        dataSetDataTable.add();
     })
 });
