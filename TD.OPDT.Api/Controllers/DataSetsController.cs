@@ -87,5 +87,14 @@ namespace TD.OPDT.Api.Controllers
             _dataSetRepository.Delete(dataSet);
             return ApiNoContent();
         }
+
+        [Route("count")]
+        [Route("~/opdtapi/dataSets/count")]
+        [HttpGet]
+        public IHttpActionResult Count(int? fieldId, int? officeId)
+        {
+            var count = _dataSetRepository.Count(fieldId, officeId);
+            return ApiOk(count);
+        }
     }
 }

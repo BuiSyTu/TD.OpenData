@@ -32,6 +32,11 @@ namespace TD.OPDT.Data.Repositories
             return model;
         }
 
+        public int Count()
+        {
+            return _context.Set<T>().Count();
+        }
+
         public virtual void Delete(T model)
         {
             _context.Set<T>().Remove(model);

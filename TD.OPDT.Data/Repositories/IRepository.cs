@@ -13,6 +13,7 @@ namespace TD.OPDT.Data.Repositories
         T GetById(int id);
         T Update(T model);
         void Delete(T model);
+        int Count();
         IQueryable<T> IncludeMany(IQueryable<T> query, string include);
         IQueryable<T> OrderByMany(IQueryable<T> query, string orderBy);
     }

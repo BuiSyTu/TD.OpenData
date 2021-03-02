@@ -87,5 +87,14 @@ namespace TD.OPDT.Api.Controllers
             _officeRepository.Delete(office);
             return ApiNoContent();
         }
+
+        [Route("count")]
+        [Route("~/opdtapi/offices/count")]
+        [HttpGet]
+        public IHttpActionResult Count()
+        {
+            var count = _officeRepository.Count();
+            return ApiOk(count);
+        }
     }
 }

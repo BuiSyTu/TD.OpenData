@@ -85,5 +85,14 @@ namespace TD.OPDT.Api.Controllers
             _fieldRepository.Delete(field);
             return ApiNoContent();
         }
+
+        [Route("count")]
+        [Route("~/opdtapi/fields/count")]
+        [HttpGet]
+        public IHttpActionResult Count()
+        {
+            var count = _fieldRepository.Count();
+            return ApiOk(count);
+        }
     }
 }

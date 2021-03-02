@@ -20,37 +20,10 @@ namespace TD.OPDT.Data.Models
         public Office Office { get; set; }
 
         [NotMapped]
-        public FileAttachmentCollection Attachments
-        {
-            get
-            {
-                if (Attachments == null) Attachments = FileAttachmentCollection.Parse(data: AttachmentsRaw);
-                return Attachments;
-            }
-            set
-            {
-                AttachmentsRaw = null;
-                Attachments = value;
-            }
-        }
+        public FileAttachmentCollection Attachments { get; set; }
 
         [JsonIgnore]
-        public string AttachmentsRaw
-        {
-            get
-            {
-                if (AttachmentsRaw == null)
-                {
-                    AttachmentsRaw = Attachments?.ToString();
-                }
-                return AttachmentsRaw;
-            }
-            set
-            {
-                Attachments = null;
-                AttachmentsRaw = value;
-            }
-        }
+        public string AttachmentsRaw { get; set;}
 
         public string LinkApi { get; set; }
 

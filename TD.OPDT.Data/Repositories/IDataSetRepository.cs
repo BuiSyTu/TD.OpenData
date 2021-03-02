@@ -9,6 +9,6 @@ namespace TD.OPDT.Data.Repositories
 {
     public interface IDataSetRepository: IRepository<DataSet>
     {
-
+        int Count(int? fieldId, int? officeId);
     }
 }
